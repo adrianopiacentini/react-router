@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import posts from '../../data/posts';
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const initialFormData = {
     id: "",
@@ -13,6 +15,8 @@ function PostPage() {
     const [post, setPost] = useState([]);
     const [newPost, setNewPost] = useState(initialFormData);
 
+    const navigate = useNavigate()
+    
     useEffect(() => {
         getPosts();
     }, []);
@@ -34,6 +38,8 @@ function PostPage() {
                 ...post, newPostApi
             ]
             setPost(newPostList)
+            navigate(`/postpage/${newPostApi.id}`)
+
         })
     };
 
@@ -55,7 +61,7 @@ function PostPage() {
             setPost(newPostList)
         })
     };
-
+    
     return (
         <>
             <div>
@@ -76,7 +82,7 @@ function PostPage() {
             {post.length !== 0
                 ? post.map((curPost) => (
                     <div key={curPost.id}>
-                        {curPost.title}
+                        <Link to={`/postpage/${curPost.id}`}>{curPost.title}</Link>
                         <button onClick={() => deletePost(curPost.id)}>Cancella</button>
                     </div>
                 ))

@@ -4,6 +4,7 @@ import HomePage from './components/HomePage'
 import PostPage from './components/PostPage'
 import Contacts from './components/Contacts'
 import AppLayout from './components/AppLayout'
+import ShowPost from './components/ShowPost'
 
 function App() {
 
@@ -11,9 +12,12 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route Component={AppLayout}>
-          <Route path='/' Component={HomePage} />
-          <Route path='/postpage' Component={PostPage} />
+          <Route index Component={HomePage} />
           <Route path='/contacts' Component={Contacts} />
+          <Route path='/postpage'>
+            <Route index Component={PostPage} />
+            <Route path=':id' Component={ShowPost}/>
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
